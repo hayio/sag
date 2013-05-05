@@ -1,0 +1,8 @@
+Wymagane kroki do uruchomienia projktu:
+1. Instalacja scali.
+2. Instalacja sbt (http://www.scala-sbt.org/). To jest to samo co Maven.
+3. Instalacja Intellij Idea Community Edition.
+4. W Intelliju instalacja pluginu scala.
+5. W Intelliju instalacja pluginu sbt.
+6. Import lub utworzenie nowego projektu w Intelliju (na folderze sources).
+7. Na spodzie edytora jest zakladka sbt. Wcisnac w jej widoku zielony trojkacik (play) i polu tekstowym na dole wpisac 'gen-idea'. Poczekac, az zaciagna sie potrzebne w projekcie biblioteki (dodalem jakies randomowe) i wyswietli sie prompt z przyciskiem ok. Wciasnac, Intellij ponownie sie zaladuje i mozna juz korzystac z bibliotek zdefiniowanych w build.sbt oraz uruchamiac aplikacje.
