@@ -1,0 +1,4 @@
+sbt run
+run
+project sag
+exit
