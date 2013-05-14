@@ -4,6 +4,7 @@ import pl.edu.pw.sag.shop.{ProductNeeded, ShopSalesmanAgent}
 import scala.util.Random
 import java.util.Date
 import pl.edu.pw.sag.Conf
+import akka.actor.ActorRef
 
 
 /**
@@ -12,14 +13,14 @@ import pl.edu.pw.sag.Conf
  * Date: 5/12/13
  * Time: 12:46 AM
  */
-class StoreEventProducer(salesman: ShopSalesmanAgent) extends Runnable {
+class StoreEventProducer(salesman: ActorRef) extends Runnable {
   val random = new Random(new Date().getTime)
 
   def run() {
     while (Conf.IS_APP_RUNNING) {
       Thread.sleep(Conf.MIN_TIME_BETWEEN_PRODUCT_DELIVERY + random.nextInt(Conf.MAX_TIME_BETWEEN_PRODUCT_DELIVERY - Conf.MIN_TIME_BETWEEN_PRODUCT_DELIVERY))
       println("PRODUCT NEEDED!")
-      salesman.self ! ProductDelivery(1 + random.nextInt(10), 1 + random.nextInt(1000))
+      salesman ! ProductDelivery(1 + random.nextInt(10), 1 + random.nextInt(1000))
     }
   }
 }

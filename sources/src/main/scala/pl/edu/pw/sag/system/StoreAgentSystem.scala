@@ -12,6 +12,7 @@ import akka.actor.{Props, ActorSystem}
 import com.typesafe.config.ConfigFactory
 import pl.edu.pw.sag.Conf
 import pl.edu.pw.sag.shop.ShopSalesmanAgent
+import pl.edu.pw.sag.store.StoreEventProducer
 
 class StoreAgentSystem extends Bootable {
   val system =
@@ -20,6 +21,7 @@ val remotePath =
   "akka.tcp://" + Conf.SYSTEM_SHOP_NAME + "@" + Conf.URI_SHOP_1 + ":" + Conf.PORT_SHOP_1 + "/user/salesman"
   //TODO na razie shopagent robi to samo co storeagent
   val storeman = system.actorOf(Props(classOf[ShopSalesmanAgent], remotePath), "storeman")
+  val eventProducer = new StoreEventProducer(storeman)
 
   def startup() {}
 

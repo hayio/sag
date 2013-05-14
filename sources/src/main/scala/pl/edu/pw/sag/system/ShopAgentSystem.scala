@@ -6,7 +6,7 @@ import pl.edu.pw.sag.Conf
 import com.typesafe.config.ConfigFactory
 import pl.edu.pw.sag.mobility.AgentState
 import pl.edu.pw.sag.agent.ShoppingAgent
-import pl.edu.pw.sag.shop.{ShopSalesmanAgent, ProductNeeded}
+import pl.edu.pw.sag.shop.{ShopEventProducer, ShopSalesmanAgent, ProductNeeded}
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,6 +22,7 @@ class ShopAgentSystem extends Bootable {
   val remotePath =
     "akka.tcp://" + Conf.SYSTEM_STORE_NAME + "@" + Conf.URI_STORE_1 + ":" + Conf.PORT_STORE_1 + "/user/storeman"
   val salesman = system.actorOf(Props(classOf[ShopSalesmanAgent], remotePath), "salesman")
+  val eventProducer = new ShopEventProducer(salesman)
 
   def startup() {}
 
@@ -31,6 +32,7 @@ class ShopAgentSystem extends Bootable {
 
   def initWithShoppers() = {
     salesman ! shopper
+    new Thread(eventProducer).run()
   }
 
   def doTest() = {
