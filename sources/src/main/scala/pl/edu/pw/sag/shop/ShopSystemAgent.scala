@@ -9,7 +9,19 @@ import akka.actor.ActorRef
  * Date: 5/24/13
  * Time: 1:03 PM
  */
+
+/**
+ * Agent, zarzadca/wlasciciel sklepu. Jest ucielesnieniem sklepu.
+ * @param storeConfNames
+ * @param nodeId
+ */
 class ShopSystemAgent(storeConfNames: List[String], nodeId: Int) extends GenericSystemAgent(storeConfNames, nodeId, Shop) {
+
+  /**
+   * Logika obslugi wiadomosci przesylanych z EventProducerow i Agentow
+   * @param remoteActors
+   * @return
+   */
   def handleLogic(remoteActors: List[ActorRef]) = {
     case productNeeded: ProductNeeded =>
       println("[ShopSystemAgent] " + productNeeded)

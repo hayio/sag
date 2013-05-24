@@ -11,4 +11,4 @@ Wymagane kroki do uruchomienia wezla z konsoli:
 1. Przejscie w konsoli do katalogu ze zrodlami (sources).
 2. Wpisz 'sbt'.
 3. W interaktywnej konsoli wpisz 'run x', gdzie x jest argumentem przekazanym do aplikacji (oznaczajacym tutaj nr wezla).
-4. Wybierz pozadana aplikacje (shop lub store).
+4. Wybierz pozadana aplikacje (shop lub store). Uruchomi sie wybrana aplikacja (sklep lub magazyn), z id wezla rownym podanemu argumentowi.

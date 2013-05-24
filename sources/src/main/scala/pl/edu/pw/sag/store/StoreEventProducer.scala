@@ -13,6 +13,11 @@ import akka.actor.ActorRef
  * Date: 5/12/13
  * Time: 12:46 AM
  */
+
+/**
+ * Producent zdarzen zwiazanych z storem (np. doszla dostawa produktu x).
+ * @param salesman
+ */
 class StoreEventProducer(salesman: ActorRef) extends Runnable {
   val random = new Random(new Date().getTime)
 

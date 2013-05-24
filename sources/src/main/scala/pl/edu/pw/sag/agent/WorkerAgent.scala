@@ -15,6 +15,11 @@ import pl.edu.pw.sag.system.ShutdownAgent
  * Date: 5/11/13
  * Time: 11:02 PM
  */
+
+/**
+ * Wlasciwy agent, ktory przenosi sie miedzy wezlami shopow i storeow.
+ * @param state
+ */
 class WorkerAgent(val state: AgentState) extends MoveableAgent {
   println("[WorkerAgent] Jestem w systemie " + state.currentNodeId)
 

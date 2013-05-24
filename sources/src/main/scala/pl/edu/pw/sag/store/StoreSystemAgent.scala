@@ -10,7 +10,19 @@ import pl.edu.pw.sag.shop.{ProductSold, ProductNeeded}
   * Date: 5/24/13
   * Time: 1:03 PM
   */
+
+/**
+ * Obsluga stora, jego wlasciciel/zarzadca.
+ * @param shopConfNames
+ * @param nodeId
+ */
 class StoreSystemAgent(shopConfNames: List[String], nodeId: Int) extends GenericSystemAgent(shopConfNames, nodeId, Store) {
+
+  /**
+   * Obsluga zdarzen przesylanych przez EventProducera lub agentow.
+   * @param remoteActors
+   * @return
+   */
   def handleLogic(remoteActors: List[ActorRef]) = {
     case ProductNeeded(productId, quantity) =>
       println(nodeId + " [StoreSystemAgent] product needed " + productId)

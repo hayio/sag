@@ -11,6 +11,10 @@ import pl.edu.pw.sag.Conf
  * Date: 5/12/13
  * Time: 12:47 AM
  */
+
+/**
+ * Na razie nie uzywane //TODO wywalic albo uzyc
+ */
 class LookupSystem extends Bootable {
   val system =
     ActorSystem(Conf.SYSTEM_NAME, ConfigFactory.load.getConfig(Conf.CONF_LOOKUP_NAME))

@@ -13,6 +13,10 @@ import com.typesafe.config.ConfigFactory
 import pl.edu.pw.sag.Conf
 import pl.edu.pw.sag.store.{StoreSystemAgent, StoreEventProducer}
 
+/**
+ * System sotra, laczy wszytko w kupe.
+ * @param nodeId
+ */
 class StoreAgentSystem(val nodeId: Int) extends Bootable with AgentSystem {
 
   val system =

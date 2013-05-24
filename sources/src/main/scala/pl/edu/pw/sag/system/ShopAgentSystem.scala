@@ -14,6 +14,11 @@ import pl.edu.pw.sag.shop.{ShopSystemAgent, ShopEventProducer, ProductNeeded}
  * Date: 5/11/13
  * Time: 11:11 PM
  */
+
+/**
+ * System sklepu. Laczy wszystko w kupie.
+ * @param nodeId
+ */
 class ShopAgentSystem(val nodeId: Int) extends Bootable with AgentSystem {
 
   val system =

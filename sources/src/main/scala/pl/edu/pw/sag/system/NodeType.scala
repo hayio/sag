@@ -6,6 +6,7 @@ package pl.edu.pw.sag.system
  * Date: 5/24/13
  * Time: 5:31 PM
  */
+
 trait NodeType
 
 case object Shop extends NodeType

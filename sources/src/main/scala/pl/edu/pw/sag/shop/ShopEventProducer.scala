@@ -11,6 +11,11 @@ import java.util.Date
  * Date: 5/12/13
  * Time: 12:46 AM
  */
+
+/**
+ * Producent zdarzen zwiazanych ze sklepem (np. potrzeba produktu x)
+ * @param salesman
+ */
 class ShopEventProducer(salesman: ActorRef) extends Runnable {
   val random = new Random(new Date().getTime)
 

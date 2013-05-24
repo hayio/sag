@@ -13,6 +13,11 @@ object Conf {
 
   /// dane sieciowe o wezlach
   // nazwy konfiguracji wezlow
+  /**
+   * Instrukcja dodania nowego wezla:
+   * Dodac tutaj nazwe konfiguracji (do zbioru shopow lub storow).
+   * Dodac konfiguracje o takie nazwie w pliku application.conf
+   */
   val STORE_CONF_NAMES = List(
     "storeconf0",
     "storeconf1"

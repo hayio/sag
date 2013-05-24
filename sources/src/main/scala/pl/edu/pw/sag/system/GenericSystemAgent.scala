@@ -23,6 +23,15 @@ import pl.edu.pw.sag.Conf
  * Date: 5/12/13
  * Time: 12:46 AM
  */
+
+/**
+ * Klasa bazowa dla zarzadcy stora lub shopa.
+ * Odpowiedzialna za nawiazanie polaczenia z odleglymi wezlami,
+ * przenoszenie agentow miedzy wezlami.
+ * @param nodeConfNames
+ * @param nodeId
+ * @param nodeType
+ */
 abstract class GenericSystemAgent(nodeConfNames: List[String], nodeId: Int, nodeType: NodeType) extends Actor {
   protected var workerAgents: List[ActorRef] = Nil
   private val actorNodes = new ListBuffer[ActorRef]

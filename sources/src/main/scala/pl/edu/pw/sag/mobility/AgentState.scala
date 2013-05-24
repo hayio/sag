@@ -10,6 +10,7 @@ import pl.edu.pw.sag.system.NodeType
  */
 
 /**
+ * Stan agenta, ktory jest przenoszony. Tutaj trzeba zawrzec wszystkie dane, ktore maja sie zachowac po przenosinach.
  * @param currentNodeId id miejsca (store lub shop), w ktorym znajduje sie agent
  */
 case class AgentState(var agentId: Int, var currentNodeId: Int, var nodeType: NodeType) {
