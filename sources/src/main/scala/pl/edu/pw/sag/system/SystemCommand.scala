@@ -11,5 +11,6 @@ import pl.edu.pw.sag.mobility.AgentState
 trait SystemCommand
 
 case class ShutdownAgent() extends SystemCommand
-case class MoveOutAgent(state: AgentState) extends SystemCommand
+case class MoveOutAgent(state: AgentState, nodeIndex: Int) extends SystemCommand
 case class MoveInAgent(state: AgentState) extends SystemCommand
+case class MovedIn() extends SystemCommand

@@ -1,5 +1,7 @@
 package pl.edu.pw.sag
 
+import com.typesafe.config.ConfigFactory
+
 /**
  * Created with IntelliJ IDEA.
  * User: Rafael Hazan
@@ -10,23 +12,26 @@ object Conf {
   var IS_APP_RUNNING = true
 
   /// dane sieciowe o wezlach
-  // nazwy wezlow
-  val SYSTEM_STORE_NAME = "storeSystem"
-  val SYSTEM_SHOP_NAME = "shopSystem"
-  val SYSTEM_LOOKUP_NAME = "lookupSystem"
   // nazwy konfiguracji wezlow
-  val CONF_STORE_NAME = "storeconf"
-  val CONF_SHOP_NAME = "shopconf"
+  val STORE_CONF_NAMES = List(
+    "storeconf0",
+    "storeconf1"
+  )
+  val SHOP_CONF_NAMES = List(
+    "shopconf0"
+  )
   val CONF_LOOKUP_NAME = "lookupconf"
-  // numery ip wezlow
-  val URI_STORE_1 = "127.0.0.1"
-  val PORT_STORE_1 = "2554"
-  val URI_SHOP_1 = "127.0.0.1"
-  val PORT_SHOP_1 = "2552"
+
+  val SYSTEM_NAME = "sag"
 
   // konfiguracja symulatorow swiata (producenci zdarzen) [ms]
   val MIN_TIME_BETWEEN_PRODUCT_NEEDED = 10000
   val MAX_TIME_BETWEEN_PRODUCT_NEEDED = 30000
   val MIN_TIME_BETWEEN_PRODUCT_DELIVERY = 10000
   val MAX_TIME_BETWEEN_PRODUCT_DELIVERY = 30000
+
+  def getPathForConf(confName: String) = {
+    val config = ConfigFactory.load().getConfig(confName)
+    "akka.tcp://" + SYSTEM_NAME + "@" + config.getString("akka.remote.netty.tcp.hostname") + ":" + config.getString("akka.remote.netty.tcp.port") + "/user/systemagent"
+  }
 }

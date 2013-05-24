@@ -6,3 +6,9 @@ Wymagane kroki do uruchomienia projktu:
 5. W Intelliju instalacja pluginu sbt.
 6. Import lub utworzenie nowego projektu w Intelliju (na folderze sources).
 7. Na spodzie edytora jest zakladka sbt. Wcisnac w jej widoku zielony trojkacik (play) i polu tekstowym na dole wpisac 'gen-idea'. Poczekac, az zaciagna sie potrzebne w projekcie biblioteki (dodalem jakies randomowe) i wyswietli sie prompt z przyciskiem ok. Wciasnac, Intellij ponownie sie zaladuje i mozna juz korzystac z bibliotek zdefiniowanych w build.sbt oraz uruchamiac aplikacje.
+
+Wymagane kroki do uruchomienia wezla z konsoli:
+1. Przejscie w konsoli do katalogu ze zrodlami (sources).
+2. Wpisz 'sbt'.
+3. W interaktywnej konsoli wpisz 'run x', gdzie x jest argumentem przekazanym do aplikacji (oznaczajacym tutaj nr wezla).
+4. Wybierz pozadana aplikacje (shop lub store).

@@ -13,7 +13,7 @@ import pl.edu.pw.sag.system.MoveOutAgent
 trait MoveableAgent extends Actor {
   val state: AgentState
 
-  def moveOut(coordinator: ActorRef) = {
-    coordinator ! MoveOutAgent(state)
+  def moveOut(coordinator: ActorRef, nodeIndex: Int) = {
+    coordinator ! MoveOutAgent(state, nodeIndex)
   }
 }

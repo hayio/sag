@@ -1,6 +1,6 @@
 package pl.edu.pw.sag.store
 
-import pl.edu.pw.sag.shop.{ProductNeeded, ShopSalesmanAgent}
+import pl.edu.pw.sag.shop.{ProductNeeded}
 import scala.util.Random
 import java.util.Date
 import pl.edu.pw.sag.Conf

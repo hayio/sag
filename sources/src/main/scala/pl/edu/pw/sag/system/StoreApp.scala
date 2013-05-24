@@ -8,7 +8,14 @@ package pl.edu.pw.sag.system
  */
 object StoreApp {
   def main(args: Array[String]) {
-    new StoreAgentSystem
-    println("Started Store Application - waiting for messages")
+    try {
+      val nodeId = args(0).toInt
+      val system = new StoreAgentSystem(nodeId)
+      println("Started Store Application - waiting for messages")
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+        println("Please, write a number.")
+    }
   }
 }

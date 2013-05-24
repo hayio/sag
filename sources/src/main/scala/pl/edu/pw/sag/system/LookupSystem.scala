@@ -13,7 +13,7 @@ import pl.edu.pw.sag.Conf
  */
 class LookupSystem extends Bootable {
   val system =
-    ActorSystem(Conf.SYSTEM_LOOKUP_NAME, ConfigFactory.load.getConfig(Conf.CONF_LOOKUP_NAME))
+    ActorSystem(Conf.SYSTEM_NAME, ConfigFactory.load.getConfig(Conf.CONF_LOOKUP_NAME))
 
   def shutdown() {}
 

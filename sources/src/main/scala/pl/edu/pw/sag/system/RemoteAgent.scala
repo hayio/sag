@@ -10,10 +10,6 @@ import akka.actor.ReceiveTimeout
 import akka.actor._
 import scala.concurrent.duration.Duration
 import scala.Some
-import pl.edu.pw.sag.mobility.AgentState
-import pl.edu.pw.sag.agent.ShoppingAgent
-import pl.edu.pw.sag.system.{MoveOutAgent, MoveInAgent, ShutdownAgent}
-import pl.edu.pw.sag.shop.ProductNeeded
 
 /**
  * Created with IntelliJ IDEA.

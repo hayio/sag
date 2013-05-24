@@ -9,3 +9,5 @@ package pl.edu.pw.sag.shop
 trait ShopMsg
 
 case class ProductNeeded(productId: Int, quantity: Int) extends ShopMsg
+
+case class ProductSold(productId: Int, quantity: Int, price: BigDecimal) extends ShopMsg
