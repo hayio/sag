@@ -27,6 +27,7 @@ class ShopAgentSystem(val nodeId: Int) extends Bootable with AgentSystem {
   val worker = initWorker()
   val systemAgent = system.actorOf(Props(classOf[ShopSystemAgent], Conf.STORE_CONF_NAMES, nodeId), "systemagent")
   val eventProducer = new ShopEventProducer(systemAgent)
+  init()
 
   def startup() {}
 

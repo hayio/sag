@@ -12,9 +12,6 @@ object ShopApp {
       val nodeId = args(0).toInt
       val system = new ShopAgentSystem(nodeId)
       println("Started Shop Application - waiting for messages")
-      Thread.sleep(5000)
-      println("Shop Application - init shoppers")
-      system.init()
     } catch {
       case e: Exception =>
         e.printStackTrace()

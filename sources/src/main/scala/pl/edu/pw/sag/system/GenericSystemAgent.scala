@@ -46,6 +46,8 @@ abstract class GenericSystemAgent(nodeConfNames: List[String], nodeId: Int, node
     }
 
   def receive = {
+    case actorRef: ActorRef =>
+      workerAgents = actorRef +: workerAgents
     case ActorIdentity(_, Some(actor)) ⇒
       println("ActorIdentity received")
       context.setReceiveTimeout(Duration.Undefined)
@@ -63,7 +65,7 @@ abstract class GenericSystemAgent(nodeConfNames: List[String], nodeId: Int, node
   }
 
   def baseReact(remoteActors: List[ActorRef]): Actor.Receive = {
-    case actorRef: ActorRef =>
+    case actorRef: ActorRef => //TODO refactor
       workerAgents = actorRef +: workerAgents
     case MoveOutAgent(state, nodeId) =>
       println(nodeId + "GenericSystemAgent: [MoveOutAgent] " + workerAgents.size)
