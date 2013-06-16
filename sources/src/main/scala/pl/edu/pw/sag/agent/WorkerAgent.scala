@@ -31,14 +31,20 @@ class WorkerAgent(val state: AgentState) extends MoveableAgent {
       state.nowVisitStore0 = !state.nowVisitStore0
     case ProductSold(productId, quantity, price) =>
       moveOut(sender, state.currentShopId.get)
-    case MovedIn(pr) =>
+    case MovedIn(priceTable) =>
       state.nodeType match {
         case Shop =>
+          priceTable.foreach(println)
           sender ! ProductSold(state.searchProductId.get, 1, BigDecimal.int2bigDecimal(1))
-          state.prices.update(state.currentShopId.get, pr)    //updates the array with prices from shop
+          state.prices += (state.currentShopId.get -> priceTable)     //updates the array with prices from shop
           cleanState()
         case Store =>
-          sender ! ProductNeeded(state.searchProductId.get, 1)
+          priceTable.foreach(println)
+          if (state.prices.apply(state.currentShopId.get).apply(state.searchProductId.get) > priceTable.apply(state.searchProductId.get)) {
+            sender ! ProductNeeded(state.searchProductId.get, 1)
+          } else {
+//            moveOut(sender, getSecondStore(state.currentStore.get))
+          }
       }
     case ShutdownAgent =>
       println("[ShutdownAgent] Jestem w systemie " + context.system.name)
