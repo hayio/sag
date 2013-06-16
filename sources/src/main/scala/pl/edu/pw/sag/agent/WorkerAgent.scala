@@ -31,10 +31,11 @@ class WorkerAgent(val state: AgentState) extends MoveableAgent {
       state.nowVisitStore0 = !state.nowVisitStore0
     case ProductSold(productId, quantity, price) =>
       moveOut(sender, state.currentShopId.get)
-    case MovedIn =>
+    case MovedIn(pr) =>
       state.nodeType match {
         case Shop =>
           sender ! ProductSold(state.searchProductId.get, 1, BigDecimal.int2bigDecimal(1))
+          state.prices.update(state.currentShopId.get, pr)    //updates the array with prices from shop
           cleanState()
         case Store =>
           sender ! ProductNeeded(state.searchProductId.get, 1)

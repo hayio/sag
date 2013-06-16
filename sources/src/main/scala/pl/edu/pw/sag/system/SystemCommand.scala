@@ -20,4 +20,4 @@ case class MoveInAgent(state: AgentState) extends SystemCommand
  * Wiadomosc oznaczajaca, ze agent wlasnie sie przeniosl.
  * Sender przyslanej wiadomosci to nowy wezel agenta.
  */
-case class MovedIn() extends SystemCommand
+case class MovedIn(prices: Array[BigDecimal]) extends SystemCommand
