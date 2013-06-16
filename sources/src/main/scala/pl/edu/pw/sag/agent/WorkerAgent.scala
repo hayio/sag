@@ -2,8 +2,9 @@ package pl.edu.pw.sag.agent
 
 import akka.actor.Actor
 import pl.edu.pw.sag.shop.{ProductSold, ProductNeeded}
-import pl.edu.pw.sag.mobility.{SecondStore, FirstStore, AgentState}
+import pl.edu.pw.sag.mobility.AgentState
 import pl.edu.pw.sag.system._
+import pl.edu.pw.sag.mobility.AgentState
 import pl.edu.pw.sag.system.MovedIn
 import scala.Some
 import pl.edu.pw.sag.system.ShutdownAgent
@@ -20,28 +21,29 @@ import pl.edu.pw.sag.system.ShutdownAgent
  * @param state
  */
 class WorkerAgent(val state: AgentState) extends MoveableAgent {
+  println("[WorkerAgent] Jestem w systemie " + state.currentNodeId)
 
   def receive = {
     case ProductNeeded(productId, quantity) =>
       state.searchProductId = Some(productId)
       state.currentShopId = Some(state.currentNodeId) // ... i tak dalej
-      moveOut(sender, state.cycleState.storeId) //to sa wciaz tylko testy
+      moveOut(sender, if (state.nowVisitStore0) 0 else 1) //to sa wciaz tylko testy
+      state.nowVisitStore0 = !state.nowVisitStore0
     case ProductSold(productId, quantity, price) =>
       moveOut(sender, state.currentShopId.get)
-    case MovedIn(pr) =>
-      println("[WorkerAgent] moved in " + state.currentNodeId)
+    case MovedIn(priceTable) =>
       state.nodeType match {
         case Shop =>
+          priceTable.foreach(println)
           sender ! ProductSold(state.searchProductId.get, 1, BigDecimal.int2bigDecimal(1))
-          state.prices.update(state.currentShopId.get, pr)    //updates the array with prices from shop
+          state.prices += (state.currentShopId.get -> priceTable)     //updates the array with prices from shop
           cleanState()
         case Store =>
-          state.cycleState match {
-            case FirstStore => // we are in first store, if prices too high, then go to second store
-              state.cycleState = SecondStore
-              moveToAnotherStore(sender)
-            case SecondStore => // we are in second store, buy and go to shop
-              sender ! ProductNeeded(state.searchProductId.get, 1)
+          priceTable.foreach(println)
+          if (state.prices.apply(state.currentShopId.get).apply(state.searchProductId.get) > priceTable.apply(state.searchProductId.get)) {
+            sender ! ProductNeeded(state.searchProductId.get, 1)
+          } else {
+//            moveOut(sender, getSecondStore(state.currentStore.get))
           }
       }
     case ShutdownAgent =>
