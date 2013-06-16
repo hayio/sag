@@ -2,6 +2,7 @@ package pl.edu.pw.sag.shop
 
 import pl.edu.pw.sag.system.{Shop, GenericSystemAgent}
 import akka.actor.ActorRef
+import pl.edu.pw.sag.Conf
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,4 +30,5 @@ class ShopSystemAgent(storeConfNames: List[String], nodeId: Int) extends Generic
     case ProductSold(productId, quantity, price) =>
       println("[ShopSystemAgent] success! shop bought new product " + productId + " " + quantity + " " + price)
   }
+
 }

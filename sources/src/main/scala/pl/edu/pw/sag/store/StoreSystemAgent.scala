@@ -3,6 +3,7 @@ package pl.edu.pw.sag.store
 import pl.edu.pw.sag.system.{Store, GenericSystemAgent}
 import akka.actor.ActorRef
 import pl.edu.pw.sag.shop.{ProductSold, ProductNeeded}
+import pl.edu.pw.sag.Conf
 
 /**
   * Created with IntelliJ IDEA.
@@ -28,4 +29,5 @@ class StoreSystemAgent(shopConfNames: List[String], nodeId: Int) extends Generic
       println(nodeId + " [StoreSystemAgent] product needed " + productId)
       sender ! ProductSold(productId, quantity, BigDecimal.int2bigDecimal(1))
   }
+
  }

@@ -83,5 +83,16 @@ abstract class GenericSystemAgent(nodeConfNames: List[String], nodeId: Int, node
       worker ! MovedIn
   }
 
+  //the state of current product prices in shop or store
+  var prices: Array[BigDecimal] = randomPrices(Conf.MAX_PRODUCTS_NUMBER)
+
+  def randomPrices(size: Int) : Array[BigDecimal] = {
+    val pr = new Array[BigDecimal](size)
+    for (a <- 0 until size) {
+      pr.update(a, Math.random() * Conf.MAX_PRICE)
+    }
+    return pr
+  }
+
   def handleLogic(remoteActors: List[ActorRef]): Receive
 }
