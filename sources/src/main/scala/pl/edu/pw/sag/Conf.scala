@@ -29,6 +29,9 @@ object Conf {
 
   val SYSTEM_NAME = "sag"
 
+  val MAX_PRODUCTS_NUMBER = 100;
+  val MAX_SHOP_NUMBER = 20;
+
   // konfiguracja symulatorow swiata (producenci zdarzen) [ms]
   val MIN_TIME_BETWEEN_PRODUCT_NEEDED = 10000
   val MAX_TIME_BETWEEN_PRODUCT_NEEDED = 30000
