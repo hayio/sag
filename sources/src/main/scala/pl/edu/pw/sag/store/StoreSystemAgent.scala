@@ -26,7 +26,7 @@ class StoreSystemAgent(shopConfNames: List[String], nodeId: Int) extends Generic
    */
   def handleLogic(remoteActors: List[ActorRef]) = {
     case ProductNeeded(productId, quantity) =>
-      println(nodeId + " [StoreSystemAgent] product needed " + productId)
+      println(nodeId + " [StoreSystemAgent] agent asks for product " + productId)
       sender ! ProductSold(productId, quantity, BigDecimal.int2bigDecimal(1))
   }
 
