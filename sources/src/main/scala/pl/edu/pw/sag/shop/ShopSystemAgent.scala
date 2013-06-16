@@ -25,10 +25,9 @@ class ShopSystemAgent(storeConfNames: List[String], nodeId: Int) extends Generic
    */
   def handleLogic(remoteActors: List[ActorRef]) = {
     case productNeeded: ProductNeeded =>
-      println("[ShopSystemAgent] " + productNeeded)
+      println("[ShopSystemAgent] shop ask agent for product " + productNeeded)
       workerAgents.foreach( _ ! productNeeded )
     case ProductSold(productId, quantity, price) =>
       println("[ShopSystemAgent] success! shop bought new product " + productId + " " + quantity + " " + price)
   }
-
 }

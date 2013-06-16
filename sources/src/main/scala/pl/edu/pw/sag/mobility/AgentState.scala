@@ -21,9 +21,8 @@ case class AgentState(var agentId: Int, var currentNodeId: Int, var nodeType: No
   /** Id produktu aktualnie szukanego */
   var searchProductId: Option[Int] = None
 
-  //testowa logika, agent przechodzi na zmiane miedzy dwoma storami
-  //i testowy stan agenta
-  var nowVisitStore0 = true
+  //agent przechodzi na zmiane miedzy n storami, zaczynajac od pierwszego
+  var cycleState: ShoppingCycleState = FirstStore
 
   /** tablica przechowywująca aktualizowane przez agenta ceny, za jakie sprzedal produkt do sklepu
     * Macierz(id_sklepu, id_produktu)*/

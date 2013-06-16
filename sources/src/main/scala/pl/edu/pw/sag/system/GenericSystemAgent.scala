@@ -37,26 +37,29 @@ abstract class GenericSystemAgent(nodeConfNames: List[String], nodeId: Int, node
   private val actorNodes = new ListBuffer[ActorRef]
 
   context.setReceiveTimeout(4.seconds)
-  sendIdentifyRequest()
+  sendIdentifyRequest
+  private var actualNodeIndex = 0
 
   def sendIdentifyRequest(): Unit =
-    nodeConfNames.foreach { confName =>
-      println("check path " + Conf.getPathForConf(confName))
-      context.actorSelection(Conf.getPathForConf(confName)) ! Identify(Conf.getPathForConf(confName))
+    if (actorNodes.size < nodeConfNames.size) {
+      println(nodeConfNames(actualNodeIndex) + " " + actualNodeIndex + " check path " + Conf.getPathForConf(nodeConfNames(actualNodeIndex)))
+      context.actorSelection(Conf.getPathForConf(nodeConfNames(actualNodeIndex))) ! Identify(Conf.getPathForConf(nodeConfNames(actualNodeIndex)))
     }
 
   def receive = {
     case actorRef: ActorRef =>
       workerAgents = actorRef +: workerAgents
     case ActorIdentity(_, Some(actor)) ⇒
-      println("ActorIdentity received")
+      println("ActorIdentity received " + actor)
       context.setReceiveTimeout(Duration.Undefined)
       actorNodes += actor
+      actualNodeIndex += 1
+      sendIdentifyRequest
       if (actorNodes.size == nodeConfNames.size) {
         context.become(active(actorNodes.result()))
       }
     case ActorIdentity(`nodeConfNames`, None) ⇒ println(s"Remote actor not availible: $nodeConfNames")
-    case ReceiveTimeout              ⇒ sendIdentifyRequest()
+    case ReceiveTimeout              ⇒ sendIdentifyRequest
     case _                           ⇒ println("Not ready yet")
   }
 
@@ -68,13 +71,16 @@ abstract class GenericSystemAgent(nodeConfNames: List[String], nodeId: Int, node
     case actorRef: ActorRef => //TODO refactor
       workerAgents = actorRef +: workerAgents
     case MoveOutAgent(state, nodeId) =>
-      println(nodeId + "GenericSystemAgent: [MoveOutAgent] " + workerAgents.size)
+      println(nodeId + "[MoveOutAgent] procedure of moving agent start " + workerAgents.size)
+      var tmpAssert = workerAgents.size
       workerAgents = workerAgents diff List(sender)
-      println("after remove " + workerAgents.size)
+      if (tmpAssert != workerAgents.size + 1) {
+        println("SYSTEM NIESPOJNY, after remove " + workerAgents.size)
+      }
       sender ! ShutdownAgent
       remoteActors(nodeId) ! MoveInAgent(state)
     case MoveInAgent(state) =>
-      println("GenericSystemAgent: [MoveInAgent]")
+      println("[MoveInAgent] Received agent, move in procedure start.")
       sender ! ShutdownAgent
       state.currentNodeId = nodeId
       state.nodeType = nodeType
