@@ -1,7 +1,7 @@
 package pl.edu.pw.sag.agent
 
 import akka.actor.{ActorRef, Actor}
-import pl.edu.pw.sag.mobility.AgentState
+import pl.edu.pw.sag.mobility.{SecondStore, AgentState}
 import pl.edu.pw.sag.system.MoveOutAgent
 import pl.edu.pw.sag.Conf
 
@@ -30,6 +30,7 @@ trait MoveableAgent extends Actor {
 
   def moveToAnotherStore(storeCoordinator: ActorRef) = {
     // na liscie wezlow najpierw sa sklepy, potem storey
+    state.cycleState = state.cycleState.toggle()
     storeCoordinator ! MoveOutAgent(state, Conf.SHOP_CONF_NAMES.size + state.cycleState.storeId)
   }
 }
