@@ -32,7 +32,7 @@ case class AgentState(var agentId: Int, var currentNodeId: Int, var nodeType: No
   var prices = initializedPrices();
 
   /*Fundusze dostępne dla agenta na zakupy w hurtowni*/
-  var availableMoney: BigDecimal = BigDecimal.valueOf(0);
+  var availableMoney: BigDecimal = Conf.AGENT_START_MONEY;
 
   def initializedPrices(): Map[Int, Array[BigDecimal]] = {
     var map:Map[Int, Array[BigDecimal]] = Map()

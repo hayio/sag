@@ -43,6 +43,8 @@ class WorkerAgent(val state: AgentState) extends MoveableAgent {
           priceTable.foreach(println)
           if (state.isProductBought) {
             sender ! ProductSold(state.searchProductId.get, 1, BigDecimal.int2bigDecimal(1))
+            state.availableMoney += state.prices.apply(state.currentShopId.get).apply(state.searchProductId.get)
+            println("Available money: " + state.availableMoney)
           }
           else {
             sender ! ProductLack(state.searchProductId.get, 1)
@@ -55,11 +57,15 @@ class WorkerAgent(val state: AgentState) extends MoveableAgent {
             case FirstStore => // we are in first store, if prices too high, then go to second store
               if (state.prices.apply(state.currentShopId.get).apply(state.searchProductId.get) > priceTable.apply(state.searchProductId.get)) {
                 sender ! ProductNeeded(state.searchProductId.get, 1)
+                state.availableMoney -= priceTable.apply(state.searchProductId.get)
+                println("Available money: " + state.availableMoney)
               } else {
                 moveToAnotherStore(sender)
               }
             case SecondStore => // we are in second store, buy and go to shop
               sender ! ProductNeeded(state.searchProductId.get, 1)
+              state.availableMoney -= priceTable.apply(state.searchProductId.get)
+              println("Available money: " + state.availableMoney)
           }
       }
     case ShutdownAgent =>

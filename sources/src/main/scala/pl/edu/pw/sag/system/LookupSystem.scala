@@ -13,7 +13,7 @@ import pl.edu.pw.sag.Conf
  */
 
 /**
- * Na razie nie uzywane //TODO wywalic albo uzyc
+ *
  */
 class LookupSystem extends Bootable {
   val system =

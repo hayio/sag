@@ -86,11 +86,11 @@ abstract class GenericSystemAgent(nodeConfNames: List[String], nodeId: Int, node
       state.nodeType = nodeType
       val worker = context.actorOf(Props(classOf[WorkerAgent], state), "shopping-agent-demo")
       workerAgents = worker +: workerAgents
-      worker ! MovedIn(prices)
+      worker ! MovedIn(randomPrices(Conf.MAX_PRODUCTS_NUMBER))
   }
 
   //the state of current product prices in shop or store
-  var prices: Array[BigDecimal] = randomPrices(Conf.MAX_PRODUCTS_NUMBER)
+//  var prices: Array[BigDecimal] = randomPrices(Conf.MAX_PRODUCTS_NUMBER)
 
   def randomPrices(size: Int) : Array[BigDecimal] = {
     val pr = new Array[BigDecimal](size)
