@@ -23,7 +23,8 @@ object Conf {
     "storeconf1"
   )
   val SHOP_CONF_NAMES = List(
-    "shopconf0"
+    "shopconf0",
+    "shopconf1"
   )
   val CONF_LOOKUP_NAME = "lookupconf"
 
@@ -37,8 +38,8 @@ object Conf {
   // konfiguracja symulatorow swiata (producenci zdarzen) [ms]
   val MIN_TIME_BETWEEN_PRODUCT_NEEDED = 10000
   val MAX_TIME_BETWEEN_PRODUCT_NEEDED = 30000
-  val MIN_TIME_BETWEEN_PRODUCT_DELIVERY = 10000
-  val MAX_TIME_BETWEEN_PRODUCT_DELIVERY = 30000
+  val MIN_TIME_BETWEEN_PRODUCT_DELIVERY = 5000
+  val MAX_TIME_BETWEEN_PRODUCT_DELIVERY = 9000
 
   def getPathForConf(confName: String) = {
     val config = ConfigFactory.load().getConfig(confName)

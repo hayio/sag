@@ -2,3 +2,5 @@ sbt run
 run
 project sag
 exit
+run 1
+exit

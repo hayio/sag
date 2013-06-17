@@ -69,7 +69,7 @@ class WorkerAgent(val state: AgentState) extends MoveableAgent {
           }
       }
     case ShutdownAgent =>
-      println("[ShutdownAgent] Jestem w systemie " + context.system.name)
+      println("[ShutdownAgent] agent usuniety z sytemu: " + context.system.name)
       context.stop(self)
   }
 
