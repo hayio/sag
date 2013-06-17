@@ -21,6 +21,8 @@ case class AgentState(var agentId: Int, var currentNodeId: Int, var nodeType: No
   /** Id produktu aktualnie szukanego */
   var searchProductId: Option[Int] = None
 
+  var isProductBought: Boolean = false
+
   //agent przechodzi na zmiane miedzy n storami, zaczynajac od pierwszego
   var cycleState: ShoppingCycleState = FirstStore
 

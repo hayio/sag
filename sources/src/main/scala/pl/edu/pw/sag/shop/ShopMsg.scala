@@ -13,3 +13,5 @@ trait ShopMsg
 case class ProductNeeded(productId: Int, quantity: Int) extends ShopMsg
 
 case class ProductSold(productId: Int, quantity: Int, price: BigDecimal) extends ShopMsg
+
+case class ProductLack(productId: Int, quantity: Int) extends ShopMsg

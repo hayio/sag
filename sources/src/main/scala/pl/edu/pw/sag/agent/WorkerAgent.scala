@@ -1,7 +1,7 @@
 package pl.edu.pw.sag.agent
 
 import akka.actor.Actor
-import pl.edu.pw.sag.shop.{ProductSold, ProductNeeded}
+import pl.edu.pw.sag.shop.{ProductLack, ProductSold, ProductNeeded}
 import pl.edu.pw.sag.mobility.{SecondStore, FirstStore, AgentState}
 import pl.edu.pw.sag.system._
 import pl.edu.pw.sag.system.MovedIn
@@ -28,12 +28,25 @@ class WorkerAgent(val state: AgentState) extends MoveableAgent {
       state.currentShopId = Some(state.currentNodeId) // ... i tak dalej
       moveOut(sender, state.cycleState.storeId) //to sa wciaz tylko testy
     case ProductSold(productId, quantity, price) =>
+      state.isProductBought = true
       moveOut(sender, state.currentShopId.get)
+    case ProductLack(productId, quantity) =>
+      state.cycleState match {
+        case FirstStore => // we are in first store, go to second store
+            moveToAnotherStore(sender)
+        case SecondStore => // we are in second store, go back to shop without product
+          moveOut(sender, state.currentShopId.get)
+      }
     case MovedIn(priceTable) =>
       state.nodeType match {
         case Shop =>
           priceTable.foreach(println)
-          sender ! ProductSold(state.searchProductId.get, 1, BigDecimal.int2bigDecimal(1))
+          if (state.isProductBought) {
+            sender ! ProductSold(state.searchProductId.get, 1, BigDecimal.int2bigDecimal(1))
+          }
+          else {
+            sender ! ProductLack(state.searchProductId.get, 1)
+          }
           state.prices += (state.currentShopId.get -> priceTable)     //updates the array with prices from shop
           cleanState()
         case Store =>
@@ -57,5 +70,6 @@ class WorkerAgent(val state: AgentState) extends MoveableAgent {
   private def cleanState() = {
     state.currentShopId = None
     state.searchProductId = None
+    state.isProductBought = false
   }
 }

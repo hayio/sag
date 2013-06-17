@@ -71,7 +71,7 @@ abstract class GenericSystemAgent(nodeConfNames: List[String], nodeId: Int, node
     case actorRef: ActorRef => //TODO refactor
       workerAgents = actorRef +: workerAgents
     case MoveOutAgent(state, nodeId) =>
-      println(nodeId + "[MoveOutAgent] procedure of moving agent start " + workerAgents.size)
+      println(nodeId + "[MoveOutAgent] procedure of moving OUT agent start " + workerAgents.size)
       var tmpAssert = workerAgents.size
       workerAgents = workerAgents diff List(sender)
       if (tmpAssert != workerAgents.size + 1) {

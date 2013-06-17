@@ -29,5 +29,7 @@ class ShopSystemAgent(storeConfNames: List[String], nodeId: Int) extends Generic
       workerAgents.foreach( _ ! productNeeded )
     case ProductSold(productId, quantity, price) =>
       println("[ShopSystemAgent] success! shop bought new product " + productId + " " + quantity + " " + price)
+    case ProductLack(productId, quantity) =>
+      println("[ShopSystemAgent] product not found in any store (with good price)! id: " + productId + " quantity: " + quantity)
   }
 }

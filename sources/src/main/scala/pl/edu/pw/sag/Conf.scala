@@ -29,7 +29,7 @@ object Conf {
 
   val SYSTEM_NAME = "sag"
 
-  val MAX_PRODUCTS_NUMBER = 100;
+  val MAX_PRODUCTS_NUMBER = 3;
   val MAX_SHOP_NUMBER = 20;
   val MAX_PRICE = 500;
 

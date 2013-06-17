@@ -23,8 +23,13 @@ class StoreAgentSystem(val nodeId: Int) extends Bootable with AgentSystem {
     ActorSystem(Conf.SYSTEM_NAME, ConfigFactory.load.getConfig(Conf.STORE_CONF_NAMES(nodeId)))
   val systemAgent = system.actorOf(Props(classOf[StoreSystemAgent], Conf.SHOP_CONF_NAMES ++ Conf.STORE_CONF_NAMES, nodeId), "systemagent")
   val eventProducer = new StoreEventProducer(systemAgent)
+  init()
 
   def startup() {}
+
+  def init() = {
+    new Thread(eventProducer).run()
+  }
 
   def shutdown() {
     system.shutdown()
